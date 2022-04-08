@@ -63,10 +63,10 @@ Indep <- na.omit(Indep)
 Dep <- na.omit(Dep)
 
 #Use any of the numerical variables from the dataset and perform the following statistical functions - summer
-• Mean 
-	• Median 
-	• Mode 
-• Range 
+#• Mean 
+#• Median 
+#• Mode 
+#• Range 
 
 > View(supermarket_sales_Sheet1)
 > library(readxl)
