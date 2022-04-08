@@ -62,7 +62,7 @@ Indep <- na.omit(Indep)
 
 Dep <- na.omit(Dep)
 
-#Use any of the numerical variables from the dataset and perform the following statistical functions - summer
+#Use any of the numerical variables from the dataset and perform the following statistical functions
 #• Mean 
 #• Median 
 #• Mode 
