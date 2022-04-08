@@ -18,8 +18,7 @@ output: html_document
 >data_unique
 
 #Reorder multiple rows in descending order
-> supermarket_sales %>% arrange(desc(`Unit price`))
->Sortedfile %>% arrange(City, `Unit price`)
+>arrange(supermarket_sales, desc(City), desc(Quantity))
 
 #• Rename some of the column names in your dataset 
 
