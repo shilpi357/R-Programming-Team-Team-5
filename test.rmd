@@ -1,63 +1,70 @@
 ---
-title: "Team5"
-author: "Shilpi"
-date: '2022-04-07'
-output: html_document
+pdf_document: default
+---
 
 #Print the top 15 rows of your dataset 
-> head(supermarket_sales...Sheet1, 15)
+
+head(supermarket_sales, 15)
 
 #Print the structure of your dataset
-> str(supermarket_sales...Sheet1)
+
+str(supermarket_sales)
 
 #List the variables in your dataset 
-> names(supermarket_sales...Sheet1)
+
+names(supermarket_sales)
 
 #Identify and remove duplicated data in your dataset
-> data_unique <- supermarket_sales...Sheet1[!duplicated(supermarket_sales...Sheet1), ]
->data_unique
+
+data_unique <- supermarket_sales[!duplicated(supermarket_sales), ]
+data_unique
 
 #Reorder multiple rows in descending order
->arrange(supermarket_sales, desc(City), desc(Quantity))
+arrange(supermarket_sales, desc(City), desc(Quantity))
 
-#• Rename some of the column names in your dataset 
+#Rename some of the column names in your dataset 
 
->names(supermarket_sales...Sheet1)[names(supermarket_sales...Sheet1) == "Invoice.ID"] <- "Invoice_ID"
->names(supermarket_sales...Sheet1)[names(supermarket_sales...Sheet1) == "CUstomer.type"] <- "Customer_type"
->names(supermarket_sales...Sheet1)[names(supermarket_sales...Sheet1) == "Unit.price"] <- "Unit_price"
->names(supermarket_sales...Sheet1)[names(supermarket_sales...Sheet1) == "Product.line"] <- "Product_line"
+names(supermarket_sales)[names(supermarket_sales) == "Invoice.ID"] <- "Invoice_ID"
+names(supermarket_sales)[names(supermarket_sales) == "CUstomer.type"] <- "Customer_type"
+names(supermarket_sales)[names(supermarket_sales) == "Unit.price"] <- "Unit_price"
+names(supermarket_sales)[names(supermarket_sales) == "Product.line"] <- "Product_line"
 
-# Add new variables in your data frame by using a mathematical function (for e.g. – multiply an existing column by 2 and add it as a new variable to your data frame) 
+#Add new variables in your data frame by using a mathematical function (for e.g. – multiply an existing column by 2 and add it as a new variable to your data frame) 
 
->library(dplyr)
->supermarket_sales...Sheet1 %>% mutate(Total_price_before_tax = Unit_price * Quantity)
+library(dplyr)
+supermarket_sales %>% mutate(Total_price_before_tax = Unit_price * Quantity)
 
-#Create a training set using random number generator engine.
-> set.seed(1234)
-> supermarket_sales %>% sample_frac(0.05, replace = FALSE)
+#Create a training set using random number generator engine
+
+set.seed(1234)
+supermarket_sales %>% sample_frac(0.05, replace = FALSE)
 
 #Summary Statistics of dataset:-
-> summary(supermarket_sales) 
+
+summary(supermarket_sales) 
 
 
 #Plot a bar plot for any 2 variables in your dataset 
-> x = supermarket_sales$Total
-> y = supermarket_sales$cogs
-> corranswe = cor(x,y,method = "pearson")
-> corranswe
 
-# Find the correlation between any 2 variables by applying least square linear regression model
-> ggplot2::ggplot(data = supermarket_sales, ggplot2::aes(x = Product.line)) + ggplot2::geom_bar(fill = "turquoise")
-> ggplot2::ggplot(data = supermarket_sales, ggplot2::aes(x = Product.line)) + ggplot2::geom_bar(fill = "lawngreen")
+x = supermarket_sales$Quantity
+y = supermarket_sales$Rating
+corranswe = cor(x,y,method = "pearson")
+corranswe
+
+#Find the correlation between any 2 variables by applying least square linear regression model
+
+ggplot2::ggplot(data = supermarket_sales, ggplot2::aes(x = Quantity)) + ggplot2::geom_bar(fill = "turquoise")
+ggplot2::ggplot(data = supermarket_sales, ggplot2::aes(y = Rating)) + ggplot2::geom_bar(fill = "lawngreen")
 
 
-#• Identify the dependent & independent variables and use reshaping techniques and create anew data frame by joining those variables from your dataset
+#Identify the dependent & independent variables and use reshaping techniques and create anew data frame by joining those variables from your dataset
 
-Indep <- data.frame(Supermarket[,(colnames(Supermarket) %in% c("Invoice.ID","Branch","City","Customer.type","Gender","Product.line","Date","Time","Payment"))])
+Indep <- data.frame(supermarket_sales[,(colnames(supermarket_sales) %in% c("Invoice.ID","Branch","City","Customer.type","Gender","Product.line","Date","Time","Payment"))])
 
-Dep <- data.frame(Supermarket[,(colnames(Supermarket) %in% c("Unit.price","Quantity","Tax.5.","Total","cogs","gross.margin.percentage","gross.income","Rating"))])
+Dep <- data.frame(supermarket_sales[,(colnames(supermarket_sales) %in% c("Unit.price","Quantity","Tax.5.","Total","cogs","gross.margin.percentage","gross.income","Rating"))])
 
-#• Remove missing values in your dataset.
+#Remove missing values in your dataset.
+
 Indep <- na.omit(Indep)
 
 Dep <- na.omit(Dep)
@@ -68,23 +75,36 @@ Dep <- na.omit(Dep)
 #• Mode 
 #• Range 
 
-> View(supermarket_sales_Sheet1)
-> library(readxl)
-> supermarket_sales_Sheet1 <- read_excel("Downloads/supermarket_sales - Sheet1.xlsx")
-> View(supermarket_sales_Sheet1)                                                                 
-> mydata<-read_excel("Downloads/supermarket_sales - Sheet1.xlsx")
+View(supermarket_sales)
+library(readxl)
+supermarket_sales <- read_excel("Downloads/supermarket_sales.csv")
+View(supermarket_sales)                                                                 
+mydata<-read_excel("Downloads/supermarket_sales.csv")
 
-> mean(mydata$Total)
-[1] 322.9667
-> median(mydata$Total)
-[1] 253.848
-> mode(mydata$Total)
-[1] "numeric"
-> range(mydata$Total)
-[1]   10.6785 1042.6500
+mean(mydata$Total)
+322.9667
+median(mydata$Total)
+253.848
+mode(mydata$Total)
+"numeric"
+range(mydata$Total)
+10.6785
 
-#• Plot a scatter plot for any 2 variables in your dataset
-> ggplot2::ggplot(data=mydata,ggplot2::aes(x=Total,y=cogs))+ggplot2::geom_point(fill="lawngreen")
+#Plot a scatter plot for any 2 variables in your dataset
+
+ggplot2::ggplot(data=supermarket_sales,ggplot2::aes(x=Total,y=cogs))+ggplot2::geom_point(fill="lawngreen")
+
+#Write a user defined function using any of the variables from the data set
+
+does_city_exist <- function(city_name){
+the_values <- supermarket_sales$City
+ city_name %in% the_values
+}
+does_city_exist('City name')
+
+#Use data manipulation techniques and filter rows based on any logical criteria that exist in your dataset
+
+supermarket_sales %>% filter(Branch == "B" & Rating >= 8)
 ---
 
 ```{r setup, include=FALSE}
@@ -97,8 +117,109 @@ This is an R Markdown document. Markdown is a simple formatting syntax for autho
 
 When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
 
-```{r cars}
-summary(cars)
+```{#Print the top 15 rows of your dataset}
+
+head(supermarket_sales, 15)
+
+#Print the structure of your dataset
+
+str(supermarket_sales)
+
+#List the variables in your dataset 
+
+names(supermarket_sales)
+
+#Identify and remove duplicated data in your dataset
+
+data_unique <- supermarket_sales[!duplicated(supermarket_sales), ]
+data_unique
+
+#Reorder multiple rows in descending order
+arrange(supermarket_sales, desc(City), desc(Quantity))
+
+#Rename some of the column names in your dataset 
+
+names(supermarket_sales)[names(supermarket_sales) == "Invoice.ID"] <- "Invoice_ID"
+names(supermarket_sales)[names(supermarket_sales) == "CUstomer.type"] <- "Customer_type"
+names(supermarket_sales)[names(supermarket_sales) == "Unit.price"] <- "Unit_price"
+names(supermarket_sales)[names(supermarket_sales) == "Product.line"] <- "Product_line"
+
+#Add new variables in your data frame by using a mathematical function (for e.g. – multiply an existing column by 2 and add it as a new variable to your data frame) 
+
+library(dplyr)
+supermarket_sales %>% mutate(Total_price_before_tax = Unit_price * Quantity)
+
+#Create a training set using random number generator engine
+
+set.seed(1234)
+supermarket_sales %>% sample_frac(0.05, replace = FALSE)
+
+#Summary Statistics of dataset:-
+
+summary(supermarket_sales) 
+
+
+#Plot a bar plot for any 2 variables in your dataset 
+
+x = supermarket_sales$Quantity
+y = supermarket_sales$Rating
+corranswe = cor(x,y,method = "pearson")
+corranswe
+
+#Find the correlation between any 2 variables by applying least square linear regression model
+
+ggplot2::ggplot(data = supermarket_sales, ggplot2::aes(x = Quantity)) + ggplot2::geom_bar(fill = "turquoise")
+ggplot2::ggplot(data = supermarket_sales, ggplot2::aes(y = Rating)) + ggplot2::geom_bar(fill = "lawngreen")
+
+
+#Identify the dependent & independent variables and use reshaping techniques and create anew data frame by joining those variables from your dataset
+
+Indep <- data.frame(supermarket_sales[,(colnames(supermarket_sales) %in% c("Invoice.ID","Branch","City","Customer.type","Gender","Product.line","Date","Time","Payment"))])
+
+Dep <- data.frame(supermarket_sales[,(colnames(supermarket_sales) %in% c("Unit.price","Quantity","Tax.5.","Total","cogs","gross.margin.percentage","gross.income","Rating"))])
+
+#Remove missing values in your dataset.
+
+Indep <- na.omit(Indep)
+
+Dep <- na.omit(Dep)
+
+#Use any of the numerical variables from the dataset and perform the following statistical functions
+#• Mean 
+#• Median 
+#• Mode 
+#• Range 
+
+View(supermarket_sales)
+library(readxl)
+supermarket_sales <- read_excel("Downloads/supermarket_sales.csv")
+View(supermarket_sales)                                                                 
+mydata<-read_excel("Downloads/supermarket_sales.csv")
+
+mean(mydata$Total)
+322.9667
+median(mydata$Total)
+253.848
+mode(mydata$Total)
+"numeric"
+range(mydata$Total)
+10.6785
+
+#Plot a scatter plot for any 2 variables in your dataset
+
+ggplot2::ggplot(data=supermarket_sales,ggplot2::aes(x=Total,y=cogs))+ggplot2::geom_point(fill="lawngreen")
+
+#Write a user defined function using any of the variables from the data set
+
+does_city_exist <- function(city_name){
+the_values <- supermarket_sales$City
+ city_name %in% the_values
+}
+does_city_exist('City name')
+
+#Use data manipulation techniques and filter rows based on any logical criteria that exist in your dataset
+
+supermarket_sales %>% filter(Branch == "B" & Rating >= 8)
 ```
 
 ## Including Plots
