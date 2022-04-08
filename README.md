@@ -2,7 +2,10 @@
 R Programming 
 
 ## Team Members
-- Shilpi Pattnaik
-- X
-- Y
-- Z
+- Shilpi Pattanaik
+- Vidul Naik
+- Amol deep singh
+- Summer
+- Sarah
+- Prabina
+- Ryan
