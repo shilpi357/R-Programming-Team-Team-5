@@ -14,16 +14,12 @@ output: pdf_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-#Packages to install 
-#```{r}
-#install.packages("readxl")
-#install.packages("dplyr")
-#install.packages("tidyr")
-#install.packages("ggplot2")
+#  Packages to install  
+* install.packages("dplyr")  
+* install.packages("tidyr")  
+* install.packages("ggplot2")  
 
-
-#```
-#libraries to import
+# libraries to import
 ```{r}
 library(readxl)
 library(tidyr)
@@ -31,7 +27,7 @@ library(dplyr)
 library(ggplot2)
 
 ```
-#Reading the input file
+# Reading the input file
 ```{r}
 supermarket_sales <-read.csv(file = "./supermarket_sales.csv")
 ```
@@ -39,26 +35,26 @@ supermarket_sales <-read.csv(file = "./supermarket_sales.csv")
 ```{r}
 head(supermarket_sales, 15)
 ```
-#Print the structure of your dataset
+# Print the structure of your dataset
 ```{r}
 str(supermarket_sales)
 ```
-#List the variables in your dataset 
+# List the variables in your dataset 
 
 ```{r}
 names(supermarket_sales)
 ```
-#Identify and remove duplicated data in your dataset
+# Identify and remove duplicated data in your dataset
 
 ```{r}
 data_unique <- supermarket_sales[!duplicated(supermarket_sales), ]
 data_unique
 ```
-#Reorder multiple rows in descending order
+# Reorder multiple rows in descending order
 ```{r}
 arrange(supermarket_sales, desc(City), desc(Quantity))
 ```
-#Rename some of the column names in your dataset 
+# Rename some of the column names in your dataset 
 
 ```{r}
 names(supermarket_sales)[names(supermarket_sales) == "Invoice.ID"] <- "Invoice_ID"
@@ -66,52 +62,58 @@ names(supermarket_sales)[names(supermarket_sales) == "CUstomer.type"] <- "Custom
 names(supermarket_sales)[names(supermarket_sales) == "Unit.price"] <- "Unit_price"
 names(supermarket_sales)[names(supermarket_sales) == "Product.line"] <- "Product_line"
 ```
-#Add new variables in your data frame by using a mathematical function (for e.g. – multiply an existing column by 2 and add it as a new variable to your data frame) 
+# Add new variables in your data frame by using a mathematical function (for e.g. – multiply an existing column by 2 and add it as a new variable to your data frame) 
 ```{r}
 
 supermarket_sales %>% mutate(Total_price_before_tax = Unit_price * Quantity)
 ```
-#Create a training set using random number generator engine
+# Create a training set using random number generator engine
 ```{r}
 set.seed(1234)
 supermarket_sales %>% sample_frac(0.05, replace = FALSE)
 ```
-#Summary Statistics of dataset:-
+# Summary Statistics of dataset:-
 ```{r}
 summary(supermarket_sales) 
 ```
 
-#Plot a bar plot for any 2 variables in your dataset 
+# Plot a bar plot for any 2 variables in your dataset 
 ```{r}
 x = supermarket_sales$Quantity
 y = supermarket_sales$Rating
 corranswe = cor(x,y,method = "pearson")
 corranswe
 ```
-#Find the correlation between any 2 variables by applying least square linear regression model
+# Find the correlation between any 2 variables by applying least square linear regression model
 ```{r}
-ggplot2::ggplot(data = supermarket_sales, ggplot2::aes(x = Quantity)) + ggplot2::geom_bar(fill = "turquoise")
-ggplot2::ggplot(data = supermarket_sales, ggplot2::aes(y = Rating)) + ggplot2::geom_bar(fill = "lawngreen")
+ggplot2::ggplot(data = supermarket_sales, 
+ggplot2::aes(x = Quantity)) + ggplot2::geom_bar(fill = "turquoise")
 ```
 
-#Identify the dependent & independent variables and use reshaping techniques and create anew data frame by joining those variables from your dataset
+```{r}
+ggplot2::ggplot(data = supermarket_sales, 
+ggplot2::aes(y = Rating)) + ggplot2::geom_bar(fill = "lawngreen")
+
+```
+
+# Identify the dependent & independent variables and use reshaping techniques and create anew data frame by joining those variables from your dataset
 ```{r}
 Indep <- data.frame(supermarket_sales[,(colnames(supermarket_sales) %in% c("Invoice.ID","Branch","City","Customer.type","Gender","Product.line","Date","Time","Payment"))])
 
 Dep <- data.frame(supermarket_sales[,(colnames(supermarket_sales) %in% c("Unit.price","Quantity","Tax.5.","Total","cogs","gross.margin.percentage","gross.income","Rating"))])
 ```
-#Remove missing values in your dataset.
+# Remove missing values in your dataset.
 ```{r}
 Indep <- na.omit(Indep)
 
 Dep <- na.omit(Dep)
 ```
 
-#Use any of the numerical variables from the dataset and perform the following statistical functions
-#• Mean 
-#• Median 
-#• Mode 
-#• Range 
+# Use any of the numerical variables from the dataset and perform the following statistical functions  
+* Mean 
+* Median 
+* Mode 
+* Range 
 ```{r}
 
 mean(supermarket_sales$Total)
@@ -127,12 +129,12 @@ mode(supermarket_sales$Total)
 range(supermarket_sales$Total)
 ```
 
-#Plot a scatter plot for any 2 variables in your dataset
+# Plot a scatter plot for any 2 variables in your dataset
 
 ```{r}
 ggplot(data=supermarket_sales,aes(x=Total,y=cogs))+geom_point(fill="lawngreen")
 ```
-#Write a user defined function using any of the variables from the data set
+# Write a user defined function using any of the variables from the data set
 ```{r}
 does_city_exist <- function(city_name){
 the_values <- supermarket_sales$City
@@ -140,7 +142,7 @@ the_values <- supermarket_sales$City
 }
 does_city_exist('City name')
 ```
-#Use data manipulation techniques and filter rows based on any logical criteria that exist in your dataset
+# Use data manipulation techniques and filter rows based on any logical criteria that exist in your dataset
 ```{r}
 supermarket_sales %>% filter(Branch == "B" & Rating >= 8)
 
