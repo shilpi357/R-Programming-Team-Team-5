@@ -98,9 +98,11 @@ ggplot2::aes(y = Rating)) + ggplot2::geom_bar(fill = "lawngreen")
 
 # Identify the dependent & independent variables and use reshaping techniques and create anew data frame by joining those variables from your dataset
 ```{r}
-Indep <- data.frame(supermarket_sales[,(colnames(supermarket_sales) %in% c("Invoice.ID","Branch","City","Customer.type","Gender","Product.line","Date","Time","Payment"))])
+Indep <- data.frame(supermarket_sales[,
+                   (colnames(supermarket_sales) %in% c("Invoice.ID","Branch","City","Customer.type","Gender","Product.line","Date","Time","Payment"))])
 
-Dep <- data.frame(supermarket_sales[,(colnames(supermarket_sales) %in% c("Unit.price","Quantity","Tax.5.","Total","cogs","gross.margin.percentage","gross.income","Rating"))])
+Dep <- data.frame(supermarket_sales[,
+        (colnames(supermarket_sales) %in% c("Unit.price","Quantity","Tax.5.","Total","cogs","gross.margin.percentage","gross.income","Rating"))])
 ```
 # Remove missing values in your dataset.
 ```{r}
